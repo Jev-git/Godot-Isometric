@@ -1,5 +1,6 @@
 # Doing
-Detect mouse position when click on tilemap
+* Obstacle
+* Path finding
 # Time
 Nov 9th - 19th
 # Into the breach
