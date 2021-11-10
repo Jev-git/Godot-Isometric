@@ -1,36 +1,53 @@
 extends TileMap
 
-onready var m_vCurrentHighlightCell: Vector2
-onready var m_bIsHighlighting: bool = false
+export var m_psHighlightCell: PackedScene
+
+onready var m_nCursor: Sprite = $Cursor
+onready var m_nHighlightCells: Node2D = $HighlightCells
 
 onready var m_avObstacles: Array = get_parent().get_node("Obstacle").get_used_cells()
+
+onready var m_vCursorPos: Vector2
+
+signal cell_selected(vCellPos)
+
+func _ready():
+	for vCellPos in get_used_cells():
+		var nHighlightCell: Sprite = m_psHighlightCell.instance()
+		nHighlightCell.position = map_to_world(vCellPos)
+		nHighlightCell.visible = false
+		nHighlightCell.m_vCellPos = vCellPos
+		m_nHighlightCells.add_child(nHighlightCell)
 
 func _process(delta):
 	var vCellPos = world_to_map(to_local(get_global_mouse_position()))
 	if vCellPos.x >= 0 and vCellPos.x < CONSTANTS.BOARD_SIZE.x \
 		and vCellPos.y >= 0 and vCellPos.y < CONSTANTS.BOARD_SIZE.y:
-		_high_light_cell(vCellPos)
+		_set_cursor_pos(vCellPos)
 	else:
-		_unhighlight_cell()
+		_hide_cursor()
 
 func _input(event):
 	if event is InputEventMouseButton:
-		if event.is_pressed() and m_bIsHighlighting and \
-			!m_avObstacles.has(m_vCurrentHighlightCell):
-			for vCell in _get_cells_in_range(m_vCurrentHighlightCell, 3):
-				set_cellv(vCell, 2)
+		if event.is_pressed() and m_nCursor.visible:
+			emit_signal("cell_selected", m_vCursorPos)
 
-func _unhighlight_cell():
-	m_bIsHighlighting = false
-	set_cellv(m_vCurrentHighlightCell, 0)
+func _hide_cursor():
+	m_nCursor.visible = false
 
-func _high_light_cell(_vCellPos: Vector2):
-	m_bIsHighlighting = true
-	set_cellv(m_vCurrentHighlightCell, 0)
-	m_vCurrentHighlightCell = _vCellPos
-	set_cellv(m_vCurrentHighlightCell, 2)
+func _set_cursor_pos(_vCellPos: Vector2):
+	m_nCursor.visible = true
+	m_vCursorPos = _vCellPos
+	m_nCursor.position = map_to_world(_vCellPos)
 
-func _get_cells_in_range(_vCellPos: Vector2, _iRange: int) -> Array:
+func highlight_cells(_avCells: Array):
+	for nHighlightCell in m_nHighlightCells.get_children():
+		if _avCells.has(nHighlightCell.m_vCellPos):
+			nHighlightCell.visible = true
+		else:
+			nHighlightCell.visible = false
+
+func get_cells_in_range(_vCellPos: Vector2, _iRange: int) -> Array:
 	var aResults: Array = []
 	for iX in range(max(_vCellPos.x - _iRange, 0), min(_vCellPos.x + _iRange + 1, CONSTANTS.BOARD_SIZE.x)):
 		for iY in range(max(_vCellPos.y - _iRange, 0), min(_vCellPos.y + _iRange + 1, CONSTANTS.BOARD_SIZE.y)):

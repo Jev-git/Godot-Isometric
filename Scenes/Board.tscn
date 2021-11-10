@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Assets/BoardTileSet.tres" type="TileSet" id=1]
+[ext_resource path="res://Assets/Terrains/BoardTileSet.tres" type="TileSet" id=1]
 [ext_resource path="res://Scripts/Floor.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Mechs/CombatMech.webp" type="Texture" id=3]
+[ext_resource path="res://Scripts/Mech.gd" type="Script" id=4]
+[ext_resource path="res://Assets/Terrains/cursor.png" type="Texture" id=5]
+[ext_resource path="res://Scenes/HighlightCell.tscn" type="PackedScene" id=6]
 
 [node name="Board" type="Node2D"]
 
@@ -13,6 +17,13 @@ cell_size = Vector2( 32, 16 )
 format = 1
 tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 65539, 0, 0, 65540, 0, 0, 65541, 0, 0, 65542, 0, 0, 65543, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0, 131077, 0, 0, 131078, 0, 0, 131079, 0, 0, 196608, 0, 0, 196609, 0, 0, 196610, 0, 0, 196611, 0, 0, 196612, 0, 0, 196613, 0, 0, 196614, 0, 0, 196615, 0, 0, 262144, 0, 0, 262145, 0, 0, 262146, 0, 0, 262147, 0, 0, 262148, 0, 0, 262149, 0, 0, 262150, 0, 0, 262151, 0, 0, 327680, 0, 0, 327681, 0, 0, 327682, 0, 0, 327683, 0, 0, 327684, 0, 0, 327685, 0, 0, 327686, 0, 0, 327687, 0, 0, 393216, 0, 0, 393217, 0, 0, 393218, 0, 0, 393219, 0, 0, 393220, 0, 0, 393221, 0, 0, 393222, 0, 0, 393223, 0, 0, 458752, 0, 0, 458753, 0, 0, 458754, 0, 0, 458755, 0, 0, 458756, 0, 0, 458757, 0, 0, 458758, 0, 0, 458759, 0, 0 )
 script = ExtResource( 2 )
+m_psHighlightCell = ExtResource( 6 )
+
+[node name="HighlightCells" type="Node2D" parent="Floor"]
+
+[node name="Cursor" type="Sprite" parent="Floor"]
+texture = ExtResource( 5 )
+offset = Vector2( 0, 8 )
 
 [node name="Obstacle" type="TileMap" parent="."]
 position = Vector2( 240, 56 )
@@ -21,3 +32,11 @@ tile_set = ExtResource( 1 )
 cell_size = Vector2( 32, 16 )
 format = 1
 tile_data = PoolIntArray( 131079, 1, 0, 196615, 1, 0, 262144, 1, 0, 262145, 1, 0, 262151, 1, 0, 327680, 1, 0, 327681, 1, 0, 327687, 1, 0, 393219, 1, 0, 393222, 1, 0, 393223, 1, 0, 458758, 1, 0, 458759, 1, 0 )
+
+[node name="Mech" type="Node2D" parent="."]
+position = Vector2( 240, 60 )
+scale = Vector2( 0.800002, 0.800002 )
+script = ExtResource( 4 )
+
+[node name="Sprite" type="Sprite" parent="Mech"]
+texture = ExtResource( 3 )

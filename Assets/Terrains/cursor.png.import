@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Isometric-SpriteSheet.png-89e1a43d35e149b1ab88e106329af4be.stex"
+path="res://.import/cursor.png-bbb20a525bcfd060e370801a0fad1ee9.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Isometric-SpriteSheet.png"
-dest_files=[ "res://.import/Isometric-SpriteSheet.png-89e1a43d35e149b1ab88e106329af4be.stex" ]
+source_file="res://Assets/Terrains/cursor.png"
+dest_files=[ "res://.import/cursor.png-bbb20a525bcfd060e370801a0fad1ee9.stex" ]
 
 [params]
 
