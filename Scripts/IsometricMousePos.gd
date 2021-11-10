@@ -1,8 +1,7 @@
-extends Area2D
+extends TileMap
 
-onready var m_nTileMap: TileMap = get_parent()
-
-func _input_event(viewport, event, shape_idx):
-	if event is InputEventMouseButton:
-		if event.is_pressed():
-			print_debug(m_nTileMap.world_to_map(m_nTileMap.to_local(get_global_mouse_position())))
+func _process(delta):
+	var vTilePos = world_to_map(to_local(get_global_mouse_position()))
+	if vTilePos.x >= 0 and vTilePos.x <= CONSTANTS.BOARD_SIZE.x \
+		and vTilePos.y >= 0 and vTilePos.y <= CONSTANTS.BOARD_SIZE.y:
+		print_debug(vTilePos)

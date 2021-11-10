@@ -1,5 +1,4 @@
 # Doing
-* Obstacle
 * Path finding
 # Time
 Nov 9th - 19th
