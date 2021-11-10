@@ -1,11 +1,12 @@
 # Doing
-* Path finding
-    * Find cells that can be moved to from the current cell
+* Mechs:
+    * Able to move mech around
+    * Able to attack terrains/objects/obstacles
 # Time
 Nov 9th - 19th
 # Into the breach
-* Isometric tilemap
-* Path finding
+* ~~Isometric tilemap~~
+* ~~Path finding-ish~~
 * Turn based combat
 * Enemy objective
 * Enemy reinforcement
