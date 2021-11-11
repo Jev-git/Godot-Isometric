@@ -1,7 +1,7 @@
 # Doing
 * Mechs:
     * ~~Able to move mech around~~
-    * ~~Able to avoid other mechs~~
+    * ~~Able to avoid other mechs~~ and veks
     * Able to attack terrains/objects/obstacles
 # Time
 Nov 9th - 19th
