@@ -16,17 +16,18 @@ func _on_cell_selected(_vCellPos: Vector2):
 		for nMech in get_children():
 			if _vCellPos == nMech.m_vCellPos:
 				m_nSelectedMech = nMech
-				m_avCellsInRange = m_nFloorTileMap.get_cells_in_range(_vCellPos, nMech.m_iMovementRange)
+				m_avCellsInRange = m_nFloorTileMap.get_cells_in_movement_range(_vCellPos, nMech.m_iMovementRange)
 				for nnMech in get_children():
 					if m_avCellsInRange.has(nnMech.m_vCellPos):
 						m_avCellsInRange.erase(nnMech.m_vCellPos)
 				m_nFloorTileMap.highlight_cells(m_avCellsInRange)
 				
-				m_nWeaponButton.icon = nMech.m_nWeaponTexture
+				m_nWeaponButton.set_mech(nMech)
 				break
 	else:
 		if m_avCellsInRange.has(_vCellPos):
 			m_nFloorTileMap.highlight_cells([])
 			m_nSelectedMech.set_pos(_vCellPos, m_nFloorTileMap.to_global(m_nFloorTileMap.map_to_world(_vCellPos)))
-			m_nWeaponButton.icon = null
 			m_nSelectedMech = null
+			
+			m_nWeaponButton.visible = false

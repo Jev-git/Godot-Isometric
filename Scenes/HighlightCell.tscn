@@ -4,6 +4,7 @@
 [ext_resource path="res://Scripts/HighlightCell.gd" type="Script" id=2]
 
 [node name="HighlightCell" type="Sprite"]
+modulate = Color( 0.254902, 1, 0, 1 )
 texture = ExtResource( 1 )
 offset = Vector2( 0, 8 )
 script = ExtResource( 2 )
