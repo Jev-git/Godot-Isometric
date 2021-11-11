@@ -2,7 +2,7 @@ extends Node2D
 
 onready var m_nFloorTileMap: TileMap = get_parent().get_node("Floor")
 
-onready var m_nSelectedMech: Mech = null
+onready var m_nSelectedMech: Unit = null
 onready var m_avCellsInRange: Array
 
 func _ready():

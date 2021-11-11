@@ -1,14 +1,19 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Assets/Terrains/BoardTileSet.tres" type="TileSet" id=1]
 [ext_resource path="res://Scripts/Floor.gd" type="Script" id=2]
-[ext_resource path="res://Scenes/Mech.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/Mechs/CombatMech.webp" type="Texture" id=3]
 [ext_resource path="res://Assets/Mechs/CannonMech.webp" type="Texture" id=4]
 [ext_resource path="res://Assets/Terrains/cursor.png" type="Texture" id=5]
 [ext_resource path="res://Scenes/HighlightCell.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Assets/Mechs/ArtilleryMech.webp" type="Texture" id=7]
 [ext_resource path="res://Scripts/Mechs.gd" type="Script" id=8]
 [ext_resource path="res://Scenes/Obstacle.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Assets/Veks/Scorpion.webp" type="Texture" id=10]
+[ext_resource path="res://Assets/Veks/Firefly.webp" type="Texture" id=11]
+[ext_resource path="res://Assets/Veks/Leaper.webp" type="Texture" id=12]
+[ext_resource path="res://Scripts/Unit.gd" type="Script" id=13]
+[ext_resource path="res://Scripts/Veks.gd" type="Script" id=14]
 
 [node name="Board" type="Node2D"]
 
@@ -31,28 +36,6 @@ offset = Vector2( 0, 8 )
 
 [node name="Obstacles" type="Node2D" parent="Floor"]
 
-[node name="Mechs" type="Node2D" parent="."]
-script = ExtResource( 8 )
-
-[node name="Mech" parent="Mechs" instance=ExtResource( 3 )]
-position = Vector2( 180, 30 )
-
-[node name="Mech2" parent="Mechs" instance=ExtResource( 3 )]
-position = Vector2( 220, 30 )
-m_vStartingPos = Vector2( 1, 0 )
-
-[node name="Sprite" parent="Mechs/Mech2" index="0"]
-position = Vector2( 4, 4 )
-texture = ExtResource( 4 )
-
-[node name="Mech3" parent="Mechs" instance=ExtResource( 3 )]
-position = Vector2( 260, 30 )
-m_vStartingPos = Vector2( 2, 0 )
-
-[node name="Sprite" parent="Mechs/Mech3" index="0"]
-position = Vector2( 4, 4 )
-texture = ExtResource( 7 )
-
 [node name="ObstacleTileMap" type="TileMap" parent="."]
 position = Vector2( 240, 56 )
 mode = 1
@@ -62,5 +45,51 @@ cell_y_sort = true
 format = 1
 tile_data = PoolIntArray( 131079, 1, 0, 196615, 1, 0, 262144, 1, 0, 262145, 1, 0, 262151, 1, 0, 327680, 1, 0, 327681, 1, 0, 327687, 1, 0, 393219, 1, 0, 393222, 1, 0, 393223, 1, 0, 458758, 1, 0, 458759, 1, 0 )
 
-[editable path="Mechs/Mech2"]
-[editable path="Mechs/Mech3"]
+[node name="Mechs" type="Node2D" parent="."]
+script = ExtResource( 8 )
+
+[node name="Mech" type="Sprite" parent="Mechs"]
+position = Vector2( 126.8, 34 )
+scale = Vector2( 0.8, 0.8 )
+texture = ExtResource( 3 )
+script = ExtResource( 13 )
+
+[node name="Mech2" type="Sprite" parent="Mechs"]
+position = Vector2( 166.8, 34 )
+scale = Vector2( 0.8, 0.8 )
+texture = ExtResource( 4 )
+offset = Vector2( 4, 4 )
+script = ExtResource( 13 )
+m_vStartingPos = Vector2( 1, 0 )
+
+[node name="Mech3" type="Sprite" parent="Mechs"]
+position = Vector2( 206.8, 34 )
+scale = Vector2( 0.8, 0.8 )
+texture = ExtResource( 7 )
+offset = Vector2( 4, 4 )
+script = ExtResource( 13 )
+m_vStartingPos = Vector2( 2, 0 )
+
+[node name="Veks" type="Node2D" parent="."]
+script = ExtResource( 14 )
+
+[node name="Sprite" type="Sprite" parent="Veks"]
+position = Vector2( 273.2, 34 )
+scale = Vector2( 0.7, 0.7 )
+texture = ExtResource( 10 )
+script = ExtResource( 13 )
+m_vStartingPos = Vector2( 5, 7 )
+
+[node name="Sprite2" type="Sprite" parent="Veks"]
+position = Vector2( 313.2, 34 )
+scale = Vector2( 0.7, 0.7 )
+texture = ExtResource( 11 )
+script = ExtResource( 13 )
+m_vStartingPos = Vector2( 5, 6 )
+
+[node name="Sprite3" type="Sprite" parent="Veks"]
+position = Vector2( 353.2, 34 )
+scale = Vector2( 0.7, 0.7 )
+texture = ExtResource( 12 )
+script = ExtResource( 13 )
+m_vStartingPos = Vector2( 4, 7 )

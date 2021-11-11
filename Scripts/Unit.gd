@@ -1,8 +1,8 @@
-extends Node2D
-class_name Mech
+extends Sprite
+class_name Unit
 
 export var m_iMovementRange: int = 3
-export var m_vStartingPos: Vector2 = Vector2.ZERO
+export var m_vStartingPos: Vector2
 
 onready var m_vCellPos: Vector2
 
