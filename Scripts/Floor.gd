@@ -1,11 +1,14 @@
 extends TileMap
 
 export var m_psHighlightCell: PackedScene
+export var m_psObstacleSprite: PackedScene
 
 onready var m_nCursor: Sprite = $Cursor
 onready var m_nHighlightCells: Node2D = $HighlightCells
 
-onready var m_avObstacles: Array = get_parent().get_node("Obstacle").get_used_cells()
+onready var m_nObstacleTileMap: TileMap = get_parent().get_node("ObstacleTileMap")
+onready var m_avObstacles: Array = m_nObstacleTileMap.get_used_cells()
+onready var m_nObstacles: Node2D = $Obstacles
 
 onready var m_vCursorPos: Vector2
 
@@ -18,6 +21,13 @@ func _ready():
 		nHighlightCell.visible = false
 		nHighlightCell.m_vCellPos = vCellPos
 		m_nHighlightCells.add_child(nHighlightCell)
+	
+	for vCellPos in m_avObstacles:
+		m_nObstacleTileMap.set_cellv(vCellPos, -1)
+		var nObstacleSprite: Sprite = m_psObstacleSprite.instance()
+		nObstacleSprite.position = map_to_world(vCellPos)
+		nObstacleSprite.z_index = vCellPos.x + vCellPos.y
+		m_nObstacles.add_child(nObstacleSprite)
 
 func _process(delta):
 	var vCellPos = world_to_map(to_local(get_global_mouse_position()))
