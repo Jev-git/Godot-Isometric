@@ -6,7 +6,7 @@
         * ~~Get cells in attack range (Floor.gd)~~
         * ~~Action order (Move -> Attack)~~
 * Combat:
-    * Add buildings
+    * ~~Add buildings~~
     * Veks randomly choose a target (building or mech)
     * Mech turn: move -> attack, or just attack
     * Vek turn:

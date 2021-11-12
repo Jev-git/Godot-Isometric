@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Assets/Terrains/Isometric-SpriteSheet.png" type="Texture" id=1]
 
-[node name="Obstacle" type="Sprite"]
+[node name="Mountain" type="Sprite"]
 texture = ExtResource( 1 )
 offset = Vector2( 0, 2 )
 region_enabled = true
