@@ -9,6 +9,8 @@ onready var m_nHighlightCells: Node2D = $HighlightCells
 onready var m_nObstacleTileMap: TileMap = get_parent().get_node("ObstacleTileMap")
 onready var m_avObstacles: Array = m_nObstacleTileMap.get_used_cells()
 onready var m_nObstacles: Node2D = $Obstacles
+onready var m_nMechs: Node2D = get_parent().get_node("Mechs")
+onready var m_nVeks: Node2D = get_parent().get_node("Veks")
 
 onready var m_vCursorPos: Vector2
 
@@ -69,10 +71,48 @@ func get_cells_in_movement_range(_vCellPos: Vector2, _iRange: int) -> Array:
 
 func get_cells_in_attack_range(_vCellPos: Vector2, _iWeapon: int) -> Array:
 	var aResults: Array = []
+	var avMechPos: Array = []
+	var avVekPos: Array = []
+	
+	for nMech in m_nMechs.get_children():
+		avMechPos.append(nMech.m_vCellPos)
+	for nVek in m_nVeks.get_children():
+		avVekPos.append(nVek.m_vCellPos)
+	
 	match _iWeapon:
 		CONSTANTS.WEAPONS.TITAN_FIST:
 			if _vCellPos.x > 0: aResults.append(_vCellPos + Vector2(-1, 0))
 			if _vCellPos.x < CONSTANTS.BOARD_SIZE.x - 1: aResults.append(_vCellPos + Vector2(1, 0))
 			if _vCellPos.y > 0: aResults.append(_vCellPos + Vector2(0, -1))
 			if _vCellPos.y < CONSTANTS.BOARD_SIZE.y - 1: aResults.append(_vCellPos + Vector2(0, 1))
+		CONSTANTS.WEAPONS.TAURUS_CANNON:
+			for iX in range(_vCellPos.x - 1, -1, -1):
+				var vCell: Vector2 = Vector2(iX, _vCellPos.y)
+				aResults.append(vCell)
+				if m_avObstacles.has(vCell) or avMechPos.has(vCell) or avVekPos.has(vCell):
+					break
+			for iX in range(_vCellPos.x + 1, CONSTANTS.BOARD_SIZE.x):
+				var vCell: Vector2 = Vector2(iX, _vCellPos.y)
+				aResults.append(vCell)
+				if m_avObstacles.has(vCell) or avMechPos.has(vCell) or avVekPos.has(vCell):
+					break
+			for iY in range(_vCellPos.y - 1, -1, -1):
+				var vCell: Vector2 = Vector2(_vCellPos.x, iY)
+				aResults.append(vCell)
+				if m_avObstacles.has(vCell) or avMechPos.has(vCell) or avVekPos.has(vCell):
+					break
+			for iY in range(_vCellPos.y + 1, CONSTANTS.BOARD_SIZE.y):
+				var vCell: Vector2 = Vector2(_vCellPos.x, iY)
+				aResults.append(vCell)
+				if m_avObstacles.has(vCell) or avMechPos.has(vCell) or avVekPos.has(vCell):
+					break
+		CONSTANTS.WEAPONS.ARTEMIS_ARTILLERY:
+			for iX in range(_vCellPos.x - 2, -1, -1):
+				aResults.append(Vector2(iX, _vCellPos.y))
+			for iX in range(_vCellPos.x + 2, CONSTANTS.BOARD_SIZE.x):
+				aResults.append(Vector2(iX, _vCellPos.y))
+			for iY in range(_vCellPos.y - 2, -1, -1):
+				aResults.append(Vector2(_vCellPos.x, iY))
+			for iY in range(_vCellPos.y + 2, CONSTANTS.BOARD_SIZE.y):
+				aResults.append(Vector2(_vCellPos.x, iY))
 	return aResults
